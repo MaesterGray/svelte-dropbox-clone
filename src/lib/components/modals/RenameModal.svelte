@@ -14,10 +14,8 @@
 	
 	$effect(()=>{
         if (actionResult?.type==='failure') {
-                alert('Delete operation failed')
                 renameFileModalStore.setFalse()
         }else if(actionResult?.type==='success'){
-            alert('Delete operation success')
             renameFileModalStore.setFalse()
 
         }
