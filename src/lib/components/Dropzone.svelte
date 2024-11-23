@@ -4,6 +4,7 @@
  import {addDoc,collection,serverTimestamp,updateDoc} from 'firebase/firestore';
  import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
  import { db, storage } from '$lib/firebaseconfig';
+	import { Toast } from "$lib/stores/toastStore";
  let fileInput: HTMLInputElement;
  let isDragging = $state(false)
  let {uid} = $props()
@@ -63,9 +64,19 @@
 		if (allFilesValid) {
 			await Promise.all(files.map(HandleUpload)) 
 			try {
-				alert('succeed')	
+				Toast.open({
+					type:'success',
+					id:Math.random() * 1000,
+					dismissible:true,
+					message:' Files uploaded successfully '
+				})	
 			} catch (error) {
-				alert('fail')
+				Toast.open({
+					type:'failure',
+					id:Math.random() * 1000,
+					dismissible:true,
+					message:' Files upload failed '
+				})	
 			}
 		
 			 await invalidateAll();

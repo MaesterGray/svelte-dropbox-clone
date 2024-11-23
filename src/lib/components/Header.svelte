@@ -6,6 +6,7 @@ import ToggleMode from './ToggleMode.svelte';
 import { page } from '$app/stores';
 import { signOut } from 'firebase/auth';
 import { goto } from '$app/navigation';
+// @ts-ignore
 import { auth } from '$lib/firebaseConfig';
 
 async function logOut() {
@@ -22,6 +23,7 @@ async function logOut() {
     <Logo/>
     <div class="flex gap-5 items-center">
         <ToggleMode/>
+        {#if $page.data.user}
         {#await $page.data.user then user}
         <Avatar.Root>
             <Avatar.Image
@@ -30,6 +32,8 @@ async function logOut() {
             />
         </Avatar.Root>
         {/await}
+        {/if}
+       
         
         <Button onclick={logOut} variant="ghost" class="">Sign out</Button>
     </div>

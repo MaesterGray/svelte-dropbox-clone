@@ -13,3 +13,11 @@ export type TFiles = {
 	timestamp: Date;
 	id:string
 };
+
+export type ToastOptions ={
+	id:number,
+	message:string,
+	type:'failure'|'success'
+	dismissible:boolean,
+	timeout?:number
+}

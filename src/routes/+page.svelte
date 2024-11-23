@@ -5,6 +5,7 @@
 	import {doc,setDoc} from 'firebase/firestore'
 	import { auth ,db} from '$lib/firebaseconfig';
 	import { goto } from '$app/navigation';
+	import { Toast } from '$lib/stores/toastStore';
 	const provider = new GoogleAuthProvider()
 	async function signInWithGoogle(){
 		try{
@@ -20,6 +21,13 @@
 			});
 			if (!response.ok) {
 				const errorResponse = await response.json();
+				Toast.open({
+					type:'failure',
+					id:Math.random()* 1000,
+					message:errorResponse.message,
+					dismissible:true,
+					timeout:3000
+				})
 				return;
 			}
 			await setDoc(doc(db, 'users', user.uid), {
